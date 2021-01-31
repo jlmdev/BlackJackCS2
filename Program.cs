@@ -136,7 +136,8 @@ namespace BlackJackCS2
                 dealer.PlayerName = "Dealer";
             }
 
-            Console.WriteLine($"{dealer.PlayerName}");
+            // TODO: Delete this test routine
+            // Console.WriteLine($"{dealer.PlayerName}");
 
             // Create human player instance
             var humanPlayer = new Player();
@@ -144,7 +145,8 @@ namespace BlackJackCS2
                 humanPlayer.PlayerName = userName;
             }
 
-            Console.WriteLine($"{humanPlayer.PlayerName}");
+            // TODO: Delete this test routine
+            // Console.WriteLine($"{humanPlayer.PlayerName}");
 
             // Deal initial cards to the dealer
             dealer.Hand.Add(deck[0]);
@@ -155,11 +157,12 @@ namespace BlackJackCS2
             deck.RemoveAt(0);
 
             // TODO: Delete this test routine
+            Console.WriteLine($"Dealer's cards");
             foreach (var dealerCard in dealer.Hand)
             {
                 Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
             }
-            Console.WriteLine($"Hand Value: {dealer.HandValue()}");
+            Console.WriteLine($"Dealer Hand Value: {dealer.HandValue()}");
 
             // foreach (var createdCard in deck)
             // {
@@ -177,11 +180,31 @@ namespace BlackJackCS2
             deck.RemoveAt(0);
 
             // TODO: Delete this test routine
-            foreach (var playerCard in humanPlayer.Hand)
+            // foreach (var playerCard in humanPlayer.Hand)
+            // {
+            //     Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
+            // }
+            // Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
+
+            // Player Choice Loop
+
+            // Declare variables
+            string dealAgain = "y";
+            string hitStandLoop = "y";
+
+            // Hit Stand Loop
+            while (hitStandLoop != "n")
             {
-                Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
+                // Show Player Hand
+                Console.WriteLine($"{humanPlayer.PlayerName}'s cards:");
+                foreach (var playerCard in humanPlayer.Hand)
+                {
+                    Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
+                }
+
+                // Display the current value of the hand
+                Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
             }
-            Console.WriteLine($"Hand Value: {humanPlayer.HandValue()}");
 
         }
     }
