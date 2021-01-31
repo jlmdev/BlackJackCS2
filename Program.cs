@@ -154,10 +154,18 @@ namespace BlackJackCS2
             deck.RemoveAt(0);
 
             // TODO: Delete this test routine
-            foreach (var dealerCard in dealer.Hand)
-            {
-                Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
-            }
+            // foreach (var dealerCard in dealer.Hand)
+            // {
+            //     Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
+            // }
+            // Console.WriteLine($"Hand Value: {dealer.HandValue()}");
+
+            // foreach (var createdCard in deck)
+            // {
+            //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
+            // }
+
+            // Console.WriteLine($"Count {deck.Count()}");
 
         }
     }
