@@ -122,7 +122,8 @@ namespace BlackJackCS2
                 deck[leftIndex] = leftCard;
             }
 
-            // TODO: DELETEME Test deck creation
+            // TODO: Delete this test routine
+            // Test deck creation
             // Test shuffling algrorithm
             // foreach (var createdCard in deck)
             // {
@@ -154,11 +155,11 @@ namespace BlackJackCS2
             deck.RemoveAt(0);
 
             // TODO: Delete this test routine
-            // foreach (var dealerCard in dealer.Hand)
-            // {
-            //     Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
-            // }
-            // Console.WriteLine($"Hand Value: {dealer.HandValue()}");
+            foreach (var dealerCard in dealer.Hand)
+            {
+                Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
+            }
+            Console.WriteLine($"Hand Value: {dealer.HandValue()}");
 
             // foreach (var createdCard in deck)
             // {
@@ -166,6 +167,21 @@ namespace BlackJackCS2
             // }
 
             // Console.WriteLine($"Count {deck.Count()}");
+
+            // Deal initial cards to the Player
+            humanPlayer.Hand.Add(deck[0]);
+            humanPlayer.Hand.Add(deck[1]);
+
+            // Remove Player's initial cards from deck
+            deck.RemoveAt(0);
+            deck.RemoveAt(0);
+
+            // TODO: Delete this test routine
+            foreach (var playerCard in humanPlayer.Hand)
+            {
+                Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
+            }
+            Console.WriteLine($"Hand Value: {humanPlayer.HandValue()}");
 
         }
     }
