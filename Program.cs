@@ -62,12 +62,14 @@ namespace BlackJackCS2
 
     class Program
     {
+
         static void Main(string[] args)
         {
             // Prompt player for name
             Console.WriteLine("Welcome. What's your name?");
             string userName = Console.ReadLine();
 
+            // TODO: DELETEME
             // Test userName population
             // Console.WriteLine($"Hi {userName}");
 
@@ -97,6 +99,7 @@ namespace BlackJackCS2
                 }
             }
 
+            // TODO: DELETEME 
             // Test deck creation
             // foreach (var createdCard in deck)
             // {
@@ -119,7 +122,8 @@ namespace BlackJackCS2
                 deck[leftIndex] = leftCard;
             }
 
-            // Test deck creation
+            // TODO: DELETEME Test deck creation
+            // Test shuffling algrorithm
             // foreach (var createdCard in deck)
             // {
             //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
@@ -140,6 +144,21 @@ namespace BlackJackCS2
             }
 
             Console.WriteLine($"{humanPlayer.PlayerName}");
+
+            // Deal initial cards to the dealer
+            dealer.Hand.Add(deck[0]);
+            dealer.Hand.Add(deck[1]);
+
+            // Remove Dealer's initial cards from deck
+            deck.RemoveAt(0);
+            deck.RemoveAt(0);
+
+            // TODO: Delete this test routine
+            foreach (var dealerCard in dealer.Hand)
+            {
+                Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
+            }
+
         }
     }
 }
