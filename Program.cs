@@ -213,7 +213,7 @@ namespace BlackJackCS2
                     break;
                 }
 
-                // Play the hand
+                // Play Player hand
                 Console.WriteLine("Do you want to hit or stand?");
                 string hitStandResponse = Console.ReadLine();
                 switch (hitStandResponse)
@@ -235,6 +235,39 @@ namespace BlackJackCS2
 
             }
 
+            // Play Dealer Hand
+
+            // Show Dealer's Hand
+            string dealerStand = "default";
+            while (dealerStand != "y")
+            {
+                Console.WriteLine("Dealer's Hand:");
+                foreach (var dealerCard in dealer.Hand)
+                {
+                    Console.WriteLine($"{dealerCard.Face} of {dealerCard.Suit} with value of {dealerCard.Value()}");
+                }
+
+                Console.WriteLine($"Dealer's Hand Value: {dealer.HandValue()}");
+
+                // Check the value of the dealer's hand
+
+                // Check for dealer stand conditions: Player Bust, Dealer > 16
+                if ((humanPlayer.HandValue() > 21) || (dealer.HandValue() > 16))
+                {
+                    dealerStand = "y";
+                }
+                // Dealer draws a card if player has not busted and dealer's hand value < 17
+                else
+                {
+                    dealer.Hand.Add(deck[0]);
+                    deck.RemoveAt(0);
+                    dealerStand = "n";
+                }
+
+                // Calculate Winner
+                // Check for player bust condition
+
+            }
         }
     }
 }
