@@ -157,12 +157,12 @@ namespace BlackJackCS2
             deck.RemoveAt(0);
 
             // TODO: Delete this test routine
-            Console.WriteLine($"Dealer's cards");
-            foreach (var dealerCard in dealer.Hand)
-            {
-                Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
-            }
-            Console.WriteLine($"Dealer Hand Value: {dealer.HandValue()}");
+            // Console.WriteLine($"Dealer's cards");
+            // foreach (var dealerCard in dealer.Hand)
+            // {
+            //     Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
+            // }
+            // Console.WriteLine($"Dealer Hand Value: {dealer.HandValue()}");
 
             // foreach (var createdCard in deck)
             // {
@@ -204,6 +204,35 @@ namespace BlackJackCS2
 
                 // Display the current value of the hand
                 Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
+
+                // Check for Bust condition
+                if (humanPlayer.HandValue() > 21)
+                {
+                    dealAgain = "n";
+                    hitStandLoop = "n";
+                    break;
+                }
+
+                // Play the hand
+                Console.WriteLine("Do you want to hit or stand?");
+                string hitStandResponse = Console.ReadLine();
+                switch (hitStandResponse)
+                {
+                    case "h":
+                        humanPlayer.Hand.Add(deck[0]);
+                        deck.RemoveAt(0);
+                        hitStandLoop = "y";
+                        break;
+                    case "s":
+                        dealAgain = "n";
+                        hitStandLoop = "n";
+                        break;
+                    default:
+                        Console.WriteLine("H or S, please.");
+                        break;
+                }
+
+
             }
 
         }
