@@ -73,201 +73,240 @@ namespace BlackJackCS2
             // Test userName population
             // Console.WriteLine($"Hi {userName}");
 
-            // Create Deck
-            var deck = new List<Card>();
-            // Define arrays of suits and faces for assignment
-            var assignedSuit = new string[] { "\u2660", "\u2663", "\u2665", "\u2666" };
-            var assignedFace = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
-
-            // Assign suits and faces to cards
-            // Suit Loop
-            foreach (var suit in assignedSuit)
+            // Play again loop
+            var playAgain = "y";
+            while (playAgain == "y")
             {
-                // Face Loop
-                foreach (var face in assignedFace)
+
+                // Create Deck
+                var deck = new List<Card>();
+                // Define arrays of suits and faces for assignment
+                var assignedSuit = new string[] { "\u2660", "\u2663", "\u2665", "\u2666" };
+                var assignedFace = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+
+                // Assign suits and faces to cards
+                // Suit Loop
+                foreach (var suit in assignedSuit)
                 {
-                    // create new card instance
-                    var newCard = new Card();
+                    // Face Loop
+                    foreach (var face in assignedFace)
                     {
-                        // Assign suit and face to card
-                        newCard.Suit = suit;
-                        newCard.Face = face;
+                        // create new card instance
+                        var newCard = new Card();
+                        {
+                            // Assign suit and face to card
+                            newCard.Suit = suit;
+                            newCard.Face = face;
+                        }
+
+                        // Add new card to deck
+                        deck.Add(newCard);
+                    }
+                }
+
+                // TODO: DELETEME 
+                // Test deck creation
+                // foreach (var createdCard in deck)
+                // {
+                //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
+                // }
+
+                // Shuffling Algorithm
+
+                // Declare Variables
+                var numberOfCards = deck.Count();
+                var randomNumberGenerator = new Random();
+
+                // Shuffle Loop
+                for (var rightIndex = numberOfCards - 1; rightIndex > 0; rightIndex--)
+                {
+                    var leftIndex = randomNumberGenerator.Next(rightIndex);
+                    var leftCard = deck[rightIndex];
+                    var rightCard = deck[leftIndex];
+                    deck[rightIndex] = rightCard;
+                    deck[leftIndex] = leftCard;
+                }
+
+                // TODO: Delete this test routine
+                // Test deck creation
+                // Test shuffling algrorithm
+                // foreach (var createdCard in deck)
+                // {
+                //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
+                // }
+
+                // Create Dealer player instance
+                var dealer = new Player();
+                {
+                    dealer.PlayerName = "Dealer";
+                }
+
+                // TODO: Delete this test routine
+                // Console.WriteLine($"{dealer.PlayerName}");
+
+                // Create human player instance
+                var humanPlayer = new Player();
+                {
+                    humanPlayer.PlayerName = userName;
+                }
+
+                // TODO: Delete this test routine
+                // Console.WriteLine($"{humanPlayer.PlayerName}");
+
+                // Deal initial cards to the dealer
+                dealer.Hand.Add(deck[0]);
+                dealer.Hand.Add(deck[1]);
+
+                // Remove Dealer's initial cards from deck
+                deck.RemoveAt(0);
+                deck.RemoveAt(0);
+
+                // TODO: Delete this test routine
+                // Console.WriteLine($"Dealer's cards");
+                // foreach (var dealerCard in dealer.Hand)
+                // {
+                //     Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
+                // }
+                // Console.WriteLine($"Dealer Hand Value: {dealer.HandValue()}");
+
+                // foreach (var createdCard in deck)
+                // {
+                //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
+                // }
+
+                // Console.WriteLine($"Count {deck.Count()}");
+
+                // Deal initial cards to the Player
+                humanPlayer.Hand.Add(deck[0]);
+                humanPlayer.Hand.Add(deck[1]);
+
+                // Remove Player's initial cards from deck
+                deck.RemoveAt(0);
+                deck.RemoveAt(0);
+
+                // TODO: Delete this test routine
+                // foreach (var playerCard in humanPlayer.Hand)
+                // {
+                //     Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
+                // }
+                // Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
+
+                // Player Choice Loop
+
+                // Declare variables
+                var dealAgain = "y";
+                string hitStandLoop = "y";
+
+                // Hit, stand, or bust
+                while (dealAgain == "y")
+                {
+                    // Hit Stand Loop
+                    while (hitStandLoop != "n")
+                    {
+                        // Show Player Hand
+                        Console.WriteLine($"{humanPlayer.PlayerName}'s cards:");
+                        foreach (var playerCard in humanPlayer.Hand)
+                        {
+                            Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
+                        }
+
+                        // Display the current value of the hand
+                        Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
+
+                        // Check for Bust condition
+                        if (humanPlayer.HandValue() > 21)
+                        {
+                            dealAgain = "n";
+                            hitStandLoop = "n";
+                            break;
+                        }
+
+
+                        // Play Player hand
+                        Console.WriteLine("Do you want to hit or stand?");
+                        string hitStandResponse = Console.ReadLine();
+                        switch (hitStandResponse)
+                        {
+                            case "h":
+                                humanPlayer.Hand.Add(deck[0]);
+                                deck.RemoveAt(0);
+                                hitStandLoop = "y";
+                                break;
+                            case "s":
+                                dealAgain = "n";
+                                hitStandLoop = "n";
+                                break;
+                            default:
+                                Console.WriteLine("H or S, please.");
+                                break;
+                        }
+
+
+                    }
+                }
+
+                // Play Dealer Hand
+
+                // Show Dealer's Hand
+                string dealerStand = "default";
+                while (dealerStand != "y")
+                {
+                    Console.WriteLine("Dealer's Hand:");
+                    foreach (var dealerCard in dealer.Hand)
+                    {
+                        Console.WriteLine($"{dealerCard.Face} of {dealerCard.Suit} with value of {dealerCard.Value()}");
                     }
 
-                    // Add new card to deck
-                    deck.Add(newCard);
-                }
-            }
+                    Console.WriteLine($"Dealer's Hand Value: {dealer.HandValue()}");
 
-            // TODO: DELETEME 
-            // Test deck creation
-            // foreach (var createdCard in deck)
-            // {
-            //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
-            // }
+                    // Check the value of the dealer's hand
 
-            // Shuffling Algorithm
-
-            // Declare Variables
-            var numberOfCards = deck.Count();
-            var randomNumberGenerator = new Random();
-
-            // Shuffle Loop
-            for (var rightIndex = numberOfCards - 1; rightIndex > 0; rightIndex--)
-            {
-                var leftIndex = randomNumberGenerator.Next(rightIndex);
-                var leftCard = deck[rightIndex];
-                var rightCard = deck[leftIndex];
-                deck[rightIndex] = rightCard;
-                deck[leftIndex] = leftCard;
-            }
-
-            // TODO: Delete this test routine
-            // Test deck creation
-            // Test shuffling algrorithm
-            // foreach (var createdCard in deck)
-            // {
-            //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
-            // }
-
-            // Create Dealer player instance
-            var dealer = new Player();
-            {
-                dealer.PlayerName = "Dealer";
-            }
-
-            // TODO: Delete this test routine
-            // Console.WriteLine($"{dealer.PlayerName}");
-
-            // Create human player instance
-            var humanPlayer = new Player();
-            {
-                humanPlayer.PlayerName = userName;
-            }
-
-            // TODO: Delete this test routine
-            // Console.WriteLine($"{humanPlayer.PlayerName}");
-
-            // Deal initial cards to the dealer
-            dealer.Hand.Add(deck[0]);
-            dealer.Hand.Add(deck[1]);
-
-            // Remove Dealer's initial cards from deck
-            deck.RemoveAt(0);
-            deck.RemoveAt(0);
-
-            // TODO: Delete this test routine
-            // Console.WriteLine($"Dealer's cards");
-            // foreach (var dealerCard in dealer.Hand)
-            // {
-            //     Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
-            // }
-            // Console.WriteLine($"Dealer Hand Value: {dealer.HandValue()}");
-
-            // foreach (var createdCard in deck)
-            // {
-            //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
-            // }
-
-            // Console.WriteLine($"Count {deck.Count()}");
-
-            // Deal initial cards to the Player
-            humanPlayer.Hand.Add(deck[0]);
-            humanPlayer.Hand.Add(deck[1]);
-
-            // Remove Player's initial cards from deck
-            deck.RemoveAt(0);
-            deck.RemoveAt(0);
-
-            // TODO: Delete this test routine
-            // foreach (var playerCard in humanPlayer.Hand)
-            // {
-            //     Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
-            // }
-            // Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
-
-            // Player Choice Loop
-
-            // Declare variables
-            string dealAgain = "y";
-            string hitStandLoop = "y";
-
-            // Hit Stand Loop
-            while (hitStandLoop != "n")
-            {
-                // Show Player Hand
-                Console.WriteLine($"{humanPlayer.PlayerName}'s cards:");
-                foreach (var playerCard in humanPlayer.Hand)
-                {
-                    Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
-                }
-
-                // Display the current value of the hand
-                Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
-
-                // Check for Bust condition
-                if (humanPlayer.HandValue() > 21)
-                {
-                    dealAgain = "n";
-                    hitStandLoop = "n";
-                    break;
-                }
-
-                // Play Player hand
-                Console.WriteLine("Do you want to hit or stand?");
-                string hitStandResponse = Console.ReadLine();
-                switch (hitStandResponse)
-                {
-                    case "h":
-                        humanPlayer.Hand.Add(deck[0]);
+                    // Check for dealer stand conditions: Player Bust, Dealer > 16
+                    if ((humanPlayer.HandValue() > 21) || (dealer.HandValue() > 16))
+                    {
+                        dealerStand = "y";
+                    }
+                    // Dealer draws a card if player has not busted and dealer's hand value < 17
+                    else
+                    {
+                        dealer.Hand.Add(deck[0]);
                         deck.RemoveAt(0);
-                        hitStandLoop = "y";
-                        break;
-                    case "s":
-                        dealAgain = "n";
-                        hitStandLoop = "n";
-                        break;
-                    default:
-                        Console.WriteLine("H or S, please.");
-                        break;
-                }
-
-
-            }
-
-            // Play Dealer Hand
-
-            // Show Dealer's Hand
-            string dealerStand = "default";
-            while (dealerStand != "y")
-            {
-                Console.WriteLine("Dealer's Hand:");
-                foreach (var dealerCard in dealer.Hand)
-                {
-                    Console.WriteLine($"{dealerCard.Face} of {dealerCard.Suit} with value of {dealerCard.Value()}");
-                }
-
-                Console.WriteLine($"Dealer's Hand Value: {dealer.HandValue()}");
-
-                // Check the value of the dealer's hand
-
-                // Check for dealer stand conditions: Player Bust, Dealer > 16
-                if ((humanPlayer.HandValue() > 21) || (dealer.HandValue() > 16))
-                {
-                    dealerStand = "y";
-                }
-                // Dealer draws a card if player has not busted and dealer's hand value < 17
-                else
-                {
-                    dealer.Hand.Add(deck[0]);
-                    deck.RemoveAt(0);
-                    dealerStand = "n";
+                        dealerStand = "n";
+                    }
                 }
 
                 // Calculate Winner
                 // Check for player bust condition
+                if (humanPlayer.HandValue() > 21)
+                {
+                    Console.WriteLine($"{humanPlayer.PlayerName} busts");
+                }
 
+                // Check for dealer bust condition
+                else if (dealer.HandValue() > 21)
+                {
+                    Console.WriteLine("Dealer Busts");
+                }
+
+                // Check for player win condition
+                else if (humanPlayer.HandValue() > dealer.HandValue())
+                {
+                    Console.WriteLine($"{humanPlayer.PlayerName} wins!");
+                }
+
+                // Dealer wins otherwise
+                else
+                {
+                    Console.WriteLine("Dealer wins.");
+                }
+
+                // Prompt to play again
+                Console.WriteLine($"Would you like to play again, {humanPlayer.PlayerName}? (y/n)");
+                playAgain = Console.ReadLine();
             }
         }
     }
 }
+
+
+
