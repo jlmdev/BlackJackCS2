@@ -69,10 +69,6 @@ namespace BlackJackCS2
             Console.WriteLine("Welcome. What's your name?");
             string userName = Console.ReadLine();
 
-            // TODO: DELETEME
-            // Test userName population
-            // Console.WriteLine($"Hi {userName}");
-
             // Play again loop
             var playAgain = "y";
             while (playAgain == "y")
@@ -104,13 +100,6 @@ namespace BlackJackCS2
                     }
                 }
 
-                // TODO: DELETEME 
-                // Test deck creation
-                // foreach (var createdCard in deck)
-                // {
-                //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
-                // }
-
                 // Shuffling Algorithm
 
                 // Declare Variables
@@ -127,31 +116,17 @@ namespace BlackJackCS2
                     deck[leftIndex] = leftCard;
                 }
 
-                // TODO: Delete this test routine
-                // Test deck creation
-                // Test shuffling algrorithm
-                // foreach (var createdCard in deck)
-                // {
-                //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
-                // }
-
                 // Create Dealer player instance
                 var dealer = new Player();
                 {
                     dealer.PlayerName = "Dealer";
                 }
 
-                // TODO: Delete this test routine
-                // Console.WriteLine($"{dealer.PlayerName}");
-
                 // Create human player instance
                 var humanPlayer = new Player();
                 {
                     humanPlayer.PlayerName = userName;
                 }
-
-                // TODO: Delete this test routine
-                // Console.WriteLine($"{humanPlayer.PlayerName}");
 
                 // Deal initial cards to the dealer
                 dealer.Hand.Add(deck[0]);
@@ -161,21 +136,6 @@ namespace BlackJackCS2
                 deck.RemoveAt(0);
                 deck.RemoveAt(0);
 
-                // TODO: Delete this test routine
-                // Console.WriteLine($"Dealer's cards");
-                // foreach (var dealerCard in dealer.Hand)
-                // {
-                //     Console.WriteLine($"{dealerCard.Face}{dealerCard.Suit} Value: {dealerCard.Value()}");
-                // }
-                // Console.WriteLine($"Dealer Hand Value: {dealer.HandValue()}");
-
-                // foreach (var createdCard in deck)
-                // {
-                //     Console.WriteLine($"{createdCard.Face}{createdCard.Suit}");
-                // }
-
-                // Console.WriteLine($"Count {deck.Count()}");
-
                 // Deal initial cards to the Player
                 humanPlayer.Hand.Add(deck[0]);
                 humanPlayer.Hand.Add(deck[1]);
@@ -183,13 +143,6 @@ namespace BlackJackCS2
                 // Remove Player's initial cards from deck
                 deck.RemoveAt(0);
                 deck.RemoveAt(0);
-
-                // TODO: Delete this test routine
-                // foreach (var playerCard in humanPlayer.Hand)
-                // {
-                //     Console.WriteLine($"{playerCard.Face}{playerCard.Suit} Value: {playerCard.Value()}");
-                // }
-                // Console.WriteLine($"{humanPlayer.PlayerName}'s Hand Value: {humanPlayer.HandValue()}");
 
                 // Player Choice Loop
 
@@ -221,7 +174,6 @@ namespace BlackJackCS2
                             break;
                         }
 
-
                         // Play Player hand
                         Console.WriteLine("Do you want to hit or stand?");
                         string hitStandResponse = Console.ReadLine();
@@ -240,8 +192,6 @@ namespace BlackJackCS2
                                 Console.WriteLine("H or S, please.");
                                 break;
                         }
-
-
                     }
                 }
 
@@ -307,6 +257,3 @@ namespace BlackJackCS2
         }
     }
 }
-
-
-
